@@ -77,7 +77,11 @@ const DetailsPage = () => {
           <h1>{`Nome: ${data.name}`}</h1>
           <h2>{`Nome completo: ${data.full_name}`}</h2>
           <TableContainer component={Paper}>
-            <Table>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size='small'
+            >
               <TableHead>
                 <TableRow>
                   <TableCell>Propriedades</TableCell>

@@ -6,6 +6,7 @@ import { green, blue } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
+
 import Repositories from './components/Repositories';
 import DetailsPage from "./components/Details";
 import Loading from './components/Loading';
@@ -27,14 +28,14 @@ const theme = createTheme({
 });
 
 function App() {
-  const [dados, setDados] = useState([]);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     async function fetchData() {
       const response = await clients.getAllRepositories();
-      setDados(response);
+      setData(response);
       setIsLoading(false);
     }
 
@@ -49,7 +50,6 @@ function App() {
           <Container fixed>
             <Switch>
               <Route path="/" exact>
-
                 {isLoading ? (
                   <Loading />
                 ) : (
@@ -57,7 +57,7 @@ function App() {
                     <h1>Lista de repositórios</h1>
                     <div className="App">
                       <div>
-                        <Repositories dados={dados} />
+                        <Repositories data={data} />
                       </div>
                     </div>
                   </>
