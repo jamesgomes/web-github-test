@@ -6,7 +6,7 @@ import { green, blue } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
-import Table from './components/table';
+import Repositories from './components/repositories';
 import DetailsPage from "./components/details";
 
 import clients from './clients';
@@ -47,7 +47,7 @@ function App() {
               <Route path="/" exact>
                 <h1>Lista de repositórios</h1>
                 <div className="App">
-                  <Table dados={dados} />
+                  <Repositories dados={dados} />
                 </div>
               </Route>
               <Route path="/details/:id?" exact render={props => <DetailsPage {...props} />} />

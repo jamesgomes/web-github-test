@@ -19,7 +19,7 @@ const getRepositoryById = async (id) => {
   try {
     const response = await fetch(`${API_URL}/repositories/${id}`, {
       headers: new Headers({
-        'Authorization': 'Bearer senha '
+        'Authorization': 'Bearer senha'
       }),
     });
     const data = await response.json();
