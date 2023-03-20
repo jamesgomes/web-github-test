@@ -1,13 +1,15 @@
 const API_URL = 'https://boti-github-test.herokuapp.com';
+const API_TOKEN = 'senha';
 
+const headers = {
+  headers: new Headers({
+    'Authorization': `Bearer ${API_TOKEN}`
+  }),
+}
 
 const getAllRepositories = async () => {
   try {
-    const response = await fetch(`${API_URL}/repositories`, {
-      headers: new Headers({
-        'Authorization': 'Bearer senha '
-      }),
-    });
+    const response = await fetch(`${API_URL}/repositories`, headers);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -17,11 +19,7 @@ const getAllRepositories = async () => {
 
 const getRepositoryById = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/repositories/${id}`, {
-      headers: new Headers({
-        'Authorization': 'Bearer senha'
-      }),
-    });
+    const response = await fetch(`${API_URL}/repositories/${id}`, headers);
     const data = await response.json();
     return data;
   } catch (error) {

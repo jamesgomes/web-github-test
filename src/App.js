@@ -6,8 +6,9 @@ import { green, blue } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
-import Repositories from './components/repositories';
-import DetailsPage from "./components/details";
+import Repositories from './components/Repositories';
+import DetailsPage from "./components/Details";
+import Loading from './components/Loading';
 
 import clients from './clients';
 
@@ -27,11 +28,14 @@ const theme = createTheme({
 
 function App() {
   const [dados, setDados] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchData() {
       const response = await clients.getAllRepositories();
       setDados(response);
+      setIsLoading(false);
     }
 
     fetchData();
@@ -45,10 +49,19 @@ function App() {
           <Container fixed>
             <Switch>
               <Route path="/" exact>
-                <h1>Lista de repositórios</h1>
-                <div className="App">
-                  <Repositories dados={dados} />
-                </div>
+
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <h1>Lista de repositórios</h1>
+                    <div className="App">
+                      <div>
+                        <Repositories dados={dados} />
+                      </div>
+                    </div>
+                  </>
+                )}
               </Route>
               <Route path="/details/:id?" exact render={props => <DetailsPage {...props} />} />
             </Switch>
