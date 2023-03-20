@@ -1,5 +1,5 @@
 const API_URL = 'https://boti-github-test.herokuapp.com';
-const API_TOKEN = 'senha';
+const API_TOKEN = 'grupoboticario';
 
 const headers = {
   headers: new Headers({
