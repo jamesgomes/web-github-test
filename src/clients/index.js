@@ -7,8 +7,14 @@ const headers = {
   }),
 }
 
-const getAllRepositories = async () => {
+const getRepositoriesByQuery = async (filter) => {
+  console.log('🚀 ~ file: index.js:11 ~ getRepositoriesByQuery ~ filter:', filter)
   try {
+    if (filter !== 'all') {
+      const response = await fetch(`${API_URL}/repositories?language=${filter}`, headers);
+      const data = await response.json();
+      return data;
+    }
     const response = await fetch(`${API_URL}/repositories`, headers);
     const data = await response.json();
     return data;
@@ -28,6 +34,6 @@ const getRepositoryById = async (id) => {
 }
 
 export default {
-  getAllRepositories,
+  getRepositoriesByQuery,
   getRepositoryById
 }

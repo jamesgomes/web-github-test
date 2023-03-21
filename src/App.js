@@ -5,6 +5,11 @@ import { createTheme } from '@mui/material/styles';
 import { green, blue } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 import Repositories from './components/Repositories';
@@ -30,17 +35,31 @@ const theme = createTheme({
 function App() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filter, setFilter] = React.useState('all');
+
+
+  const options = [
+    { value: 'Go', label: 'Go' },
+    { value: 'PHP', label: 'PHP' },
+    { value: 'Python', label: 'Python' },
+    { value: 'JavaScript', label: 'JavaScript' },
+    { value: 'Ruby', label: 'Ruby' },
+    { value: 'all', label: 'Todas' },
+  ];
+
+  const handleChangeFilter = async (event) => {
+    setFilter(event.target.value);
+  };
 
   useEffect(() => {
     setIsLoading(true);
-    async function fetchData() {
-      const response = await clients.getAllRepositories();
+    const fetchData = async () => {
+      const response = await clients.getRepositoriesByQuery(filter);
       setData(response);
       setIsLoading(false);
     }
-
     fetchData();
-  }, []);
+  }, [filter]);
 
   return (
     <HashRouter basename="/">
@@ -57,6 +76,26 @@ function App() {
                     <h1>Lista de repositórios</h1>
                     <div className="App">
                       <div>
+                        <Box sx={{ width: 200 }}>
+                          <FormControl fullWidth>
+                            <InputLabel id="select-filter">Filtro por linguagem</InputLabel>
+                            <Select
+                              labelId="select-filter"
+                              id="select-filter"
+                              value={filter}
+                              label="Filtro por linguagem"
+                              onChange={handleChangeFilter}
+                              key="select-filter"
+                            >
+                              {options.map((option, index) => (
+                                <MenuItem key={`${option.value}-${index}`} value={option.value}>
+                                  {option.label}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Box>
+                        <br />
                         <Repositories data={data} />
                       </div>
                     </div>
